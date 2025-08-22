@@ -17,23 +17,36 @@ def two_sum(nums: list[int], target: int) -> list | None:
    """
     
     if len(nums) < 2:
-        print("The list isn't big enough.")
+        print("The list size is smaller than 2.")
+        return
         
     else:
-        for number_1 in nums:
+        for i in nums:
             
-            first_value_index = nums.index(number_1)
-            first_value = number_1
+            first_value_index = nums.index(i)
+            first_value = i
 
-            for number_2 in nums:
-                if number_2 != first_value:
-                    final_value = first_value + number_2
+            for j in nums:
+                if j != first_value:
+                    final_value = first_value + j
                     if final_value == target:
-                        second_value_index = nums.index(number_2)
+                        second_value_index = nums.index(j)
                         nums_index = []
                         nums_index = nums_index.append(first_value_index)
                         nums_index = nums_index.append(second_value_index)
                         return nums_index
+                    
+                    elif j < nums & i < nums:
+                        continue
+
+                    else:
+                        print("No two numbers in the list add up to the target number")
+
+                else:
+                    continue
+                        
+                    
+                
 
 
 
@@ -53,38 +66,51 @@ def find_most_common_prefix(list_of_words: list[str]) -> str | None:
     :param list_of_words: List of strings to evaluate.
     :return: The longest common prefix string.
     """
-    char_pos_index = 0
     smallest_word_len = 0
     char_similar = []
-    for word in list_of_words:
-        if word[0]:
-            smallest_word_len = len(word)
-        else:
-            if smallest_word_len > len(word):
+    if len(list_of_words) == 0:
+        print("The list is empty. Please feed a list with string data.")
+        exit
+
+    elif len(list_of_words) == 1:
+        return list_of_words[0]
+    
+        
+    else:
+
+        for word in list_of_words:
+            if word[0]:
                 smallest_word_len = len(word)
+            else:
+                if smallest_word_len > len(word):
+                    smallest_word_len = len(word)
+
+                else:
+                    continue
+        iterator=0
+        extract_index=0
+        final_output_string=""
+        char_similar = []
+        while True:
+
+            word = list_of_words[extract_index]
+            char_similar= char_similar.append(word[0:extract_index])
+            iterator=iterator+1
+            if iterator == len(list_of_words):
+                iterator=0
+                extract_index = extract_index + 1
+                final_output_string = word[0:extract_index]
+                continue
+
+            elif len(set(char_similar)) != 1:
+                break
 
             else:
-                continue
-    looper=0
-    index_get=0
-    final_output_string=""
-    char_similar = []
-    while True:
-
-        word = list_of_words[index_get]
-        char_similar= char_similar.append(word[0:index_get])
-        looper=looper+1
-        if looper == len(list_of_words):
-            looper=0
-            index_get = index_get + 1
-            final_output_string = word[0:index_get]
-            continue
-
-        if len(set(char_similar)) != 1:
-            break
+                print("The list had no matching characters.")
+                exit
 
 
-    return final_output_string
+        return final_output_string
 
     
 
@@ -100,23 +126,34 @@ def three_sum(nums:list[int]) -> list[int] | None:
     :param nums: List of integers.
     :return: List containing indices of the three numbers that add up to 0, or None if no such triplet exists.
     """
-    negative = 0
-    seen = {}
-    for n in nums:
-         number_1 = n
-         number_1_index =
-         
-         for m in nums:
-             number_2 = m
-             negative = -1(number_1 + number_2)
+    if len(nums) < 3:
+        print(f"You have a list of size {len(nums)}. Minimum size of the list shoud be 3.")
+        exit
 
-             if negative in seen:
-                 return [seen[negative], m]
-             
-             else:
-                 seen[nums[m]] = [n , m]
+    else:
 
-    
+        negative = 0
+        seen = {}
+        for n in nums:
+            first_output_value = n
+            
+            for m in nums:
+                second_output_value = m
+                negative = -1(first_output_value + second_output_value)
+
+                if negative in seen:
+                    return [seen[negative], m]
+                
+                else:
+                    seen[nums[m]] = [n , m]
+
+        
+        if n and m == len(nums):
+            print("No 3 numbers in the listed, the sum of which was 0 were present.")
+            exit
+
+
+        
 
              
     
@@ -125,17 +162,21 @@ def three_sum(nums:list[int]) -> list[int] | None:
 #Given a singly linked list, reverse the nodes of the linked list
 #Example 1: [1, 2, 3] output = [3, 2, 1]
 def reverse_order_list(list_of_items):
-    looper = 0
-    if len(list_of_items)% 2 == 0:
-        looper_lim = len(list_of_items)/2
+    interator = 0
+
+    if len(list_of_items) == 0:
+        print("You have an empty list.")
+        exit
+    elif len(list_of_items)% 2 == 0:
+        max_iterations = len(list_of_items)/2
 
     else:
-        looper_lim = int(len(list_of_items)/2)
+        max_iterations = int(len(list_of_items)/2)
 
-    while looper < looper_lim:
-        temp = list_of_items[looper]
-        list_of_items[looper] = list_of_items[-1(looper) -1]
-        list_of_items[-1(looper) -1] = temp
+    while interator < max_iterations:
+        temp = list_of_items[interator]
+        list_of_items[interator] = list_of_items[-1(interator) -1]
+        list_of_items[-1(interator) -1] = temp
 
     return list_of_items
 
